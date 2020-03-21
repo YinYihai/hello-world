@@ -1,13 +1,26 @@
 #include <iostream>
+#include <cmath>
+
+int mon[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+bool is_leap_year(int year)
+{
+    if (year%4 == 0 && year%100 != 0)
+        return true;
+    else return !(year % 400);
+}
+
 class DateTime {
 private:
   int year, month, day;
   int hour, minute, second;
+  int moon_year, moon_month, moon_day;
+  void transfer(); 
 public:
   DateTime();
   ~DateTime();
   void showTime();
-  void showMoon();  //作业：将当前公历转换为农历显示出来 
+  void showMoon();  //锟斤拷业锟斤拷锟斤拷锟斤拷前锟斤拷锟斤拷转锟斤拷为农锟斤拷锟斤拷示锟斤拷锟斤拷 
 };
 int main() {
   DateTime dt, dt1;
@@ -30,11 +43,41 @@ DateTime::~DateTime()
 }
 void DateTime::showTime()
 {
-  printf("当前时间：%d/%d/%d %d:%d:%d\n", year, month, day, hour, minute, second);
+  printf("锟斤拷前时锟戒：%d/%d/%d %d:%d:%d\n", year, month, day, hour, minute, second);
 }
 
 void DateTime::showMoon()
 {
-  printf("当前农历：%d/%d/%d %d:%d:%d\n", year, 2, 27, hour, minute, second);	
+	transfer();
+  	printf("锟斤拷前农锟斤拷锟斤拷%d/%d/%d %d:%d:%d\n", moon_year, moon_month, moon_day, hour, minute, second);	
 } 
+
+void DateTime::transfer()
+{
+	int Q, R;
+    Q = (year - 1901)/4;
+    R = (year - 1901) - 4*Q;
+    int result = 14*Q + 10.6*(R+1);
+    if (is_leap_year(year))
+        mon[1] = 29;
+    else mon[1] = 28;
+    for (int x = 0; x < month-1; ++x)
+        result += mon[x];
+    result += day;
+    moon_month = result / 29.5;
+    moon_day = round(result - moon_month*29.5);
+    if (moon_month > month)
+    {
+        if (month-1 == 0)
+        {
+        	moon_month = 12;
+        	moon_year = year-1;
+		}
+        else {
+        	moon_month = month-1;
+			moon_year = year;	
+		}
+    }
+    else moon_month = month;
+}
  
