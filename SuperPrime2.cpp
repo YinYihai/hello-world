@@ -30,7 +30,7 @@ private:
 	const int number;
 };
 
-class PrimeSet {
+class PrimeSet {  //PrimeSet既可以装入Prime对象，也可以装入Prime的派生类对象
 public:
 	PrimeSet(int size) {
 		//集合的构造什么？ 
