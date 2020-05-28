@@ -12,8 +12,8 @@ using namespace std;
 /* 这段代码用于进行大数的加法,乘法,除法 */
 int a[500],b[500],c[500],d[500],e[1000];
 
-string operator+(const string& s1, const string& s2)
-{
+string operator+(const string& s1, const string& s2) //字符串的加法
+{                                                    //这个似乎有点问题，因为 string 类本身就重载过加法运算符，这里再重载，感觉会有问题.
     int m,n,v,t;
     m=s1.length();
     n=s2.length();
@@ -43,7 +43,7 @@ string operator+(const string& s1, const string& s2)
     return result;
 }
 
-string operator*(const string& a, const string& b)
+string operator*(const string& a, const string& b) //字符串的乘法
 {
     int i,j,u,v,w;
     u=a.length();
@@ -69,7 +69,7 @@ string operator*(const string& a, const string& b)
     return temp;
 }
 
-bool operator<(const string& s1, const string& s2)
+bool operator<(const string& s1, const string& s2)  // 字符串的大小比较
 {
     if (s1.length() < s2.length()) return true;
     else if (s1.length() > s2.length()) return false;
@@ -88,7 +88,7 @@ bool compare(int a[],int b[])
 }
 
 pair<string, string>
-operator/(const string& s1, const string& s2)
+operator/(const string& s1, const string& s2)  // 字符串的除法
 {
     memset(a, 0, sizeof(a));
     memset(b, 0, sizeof(b));
